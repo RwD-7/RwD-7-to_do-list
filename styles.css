@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+#task-input {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#add-task {
+    padding: 10px;
+}
+
+#task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+ti {
+    background: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button.delete-task {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
