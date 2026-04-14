@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List Profissional</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow GOD</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📋 Minha Lista de Tarefas</h1>
-            <p class="subtitle">Organize seu tempo e aumente sua produtividade</p>
-        </div>
 
-        <div class="input-section">
-            <div class="input-group">
-                <input type="text" id="task-input" placeholder="Descrição da tarefa..." maxlength="50">
-            </div>
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="entry-time">🕐 Horário de Entrada:</label>
-                    <input type="time" id="entry-time">
-                </div>
-                <div class="input-group">
-                    <label for="duration">⏱️ Duração (minutos):</label>
-                    <input type="number" id="duration" placeholder="30" min="1" max="480">
-                </div>
-            </div>
-            <button id="add-task" class="btn-add">➕ Adicionar Tarefa</button>
-        </div>
+<canvas id="particles"></canvas>
 
-        <div class="stats">
-            
-        </div>
+<main class="app">
 
-        <ul id="task-list" class="task-list"></ul>
+  <header>
+    <h1>TaskFlow</h1>
+    <p>Ultra Focus System</p>
+  </header>
 
-        <div id="empty-state" class="empty-state">
+  <section class="input">
+    <input id="task-input" placeholder="Digite sua missão...">
 
-        </div>
+    <div class="row">
+      <input type="time" id="time">
+      <input type="number" id="duration" placeholder="min">
     </div>
 
-    <script src="script.js"></script>
+    <button id="add">Adicionar</button>
+  </section>
+
+  <section class="controls">
+    <button data-filter="all">Tudo</button>
+    <button data-filter="active">Ativas</button>
+    <button data-filter="done">Concluídas</button>
+  </section>
+
+  <section id="stats"></section>
+
+  <ul id="list"></ul>
+
+  <div id="empty"></div>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
