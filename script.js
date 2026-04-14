@@ -1,52 +1,6 @@
-// ===== PARTICLES (efeito absurdo) =====
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for (let i = 0; i < 60; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    vx: Math.random() - 0.5,
-    vy: Math.random() - 0.5
-  });
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-    ctx.fillStyle = "rgba(255,255,255,0.3)";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(animateParticles);
-}
-
-animateParticles();
-
-// ===== APP =====
 class TaskApp {
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    this.filter = "all";
-
-    this.list = document.getElementById("list");
-    this.empty = document.getElementById("empty");
-    this.stats = document.getElementById("stats");
-
     this.init();
   }
 
@@ -54,99 +8,152 @@ class TaskApp {
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
 
-  calcEnd(start, dur) {
-    if (!start || !dur) return "";
-    let [h,m] = start.split(":").map(Number);
-    let total = h*60 + m + Number(dur);
-    return `${String(Math.floor(total/60)%24).padStart(2,"0")}:${String(total%60).padStart(2,"0")}`;
+  calcDuration(start, end) {
+    return (new Date(end) - new Date(start)) / 60000;
   }
 
-  add(text, time, dur) {
-    if (!text) return;
+  calcScore(task) {
+    let now = new Date();
+    let start = new Date(task.start);
 
-    this.tasks.push({
+    let urgency = (start - now) / 60000;
+    urgency = urgency < 0 ? 100 : Math.max(0, 100 - urgency);
+
+    return urgency + (task.priority * 50);
+  }
+
+  detectConflict(task) {
+    return this.tasks.some(t =>
+      new Date(task.start) < new Date(t.end) &&
+      new Date(task.end) > new Date(t.start)
+    );
+  }
+
+  addTask() {
+    let task = {
       id: Date.now(),
-      text,
-      time,
-      dur,
-      end: this.calcEnd(time, dur),
-      done: false
-    });
+      text: document.getElementById("task-input").value,
+      start: document.getElementById("start").value,
+      end: document.getElementById("end").value,
+      priority: Number(document.getElementById("priority").value),
+      done: false,
+      notified: false
+    };
 
+    task.duration = this.calcDuration(task.start, task.end);
+    task.score = this.calcScore(task);
+    task.conflict = this.detectConflict(task);
+
+    this.tasks.push(task);
+    this.sortTasks();
     this.save();
     this.render();
+  }
+
+  sortTasks() {
+    this.tasks.sort((a,b)=>b.score-a.score);
   }
 
   toggle(id) {
-    this.tasks = this.tasks.map(t => t.id===id ? {...t, done: !t.done} : t);
+    this.tasks = this.tasks.map(t =>
+      t.id===id ? {...t, done: !t.done} : t
+    );
     this.save();
     this.render();
   }
 
-  remove(id) {
-    this.tasks = this.tasks.filter(t => t.id!==id);
-    this.save();
-    this.render();
+  // 🔔 NOTIFICAÇÃO
+  notify(task) {
+    if (Notification.permission === "granted") {
+      new Notification("⏰ Tarefa iniciando", {
+        body: task.text
+      });
+    }
   }
 
-  getFiltered() {
-    if (this.filter==="active") return this.tasks.filter(t=>!t.done);
-    if (this.filter==="done") return this.tasks.filter(t=>t.done);
-    return this.tasks;
+  startNotificationLoop() {
+    setInterval(() => {
+      let now = new Date();
+
+      this.tasks.forEach(task => {
+        if (task.notified) return;
+
+        let start = new Date(task.start);
+        let diff = (start - now) / 60000;
+
+        if (diff <= 1 && diff >= 0) {
+          this.notify(task);
+          task.notified = true;
+          this.save();
+        }
+      });
+    }, 30000);
+  }
+
+  renderTimeline() {
+    let el = document.getElementById("timeline");
+    el.innerHTML = "<strong>Agenda do dia:</strong><br>";
+
+    this.tasks.forEach(t => {
+      el.innerHTML += `
+        ${new Date(t.start).toLocaleTimeString()} - ${t.text}<br>
+      `;
+    });
   }
 
   render() {
-    this.list.innerHTML = "";
-    let data = this.getFiltered();
+    const list = document.getElementById("list");
+    list.innerHTML = "";
 
-    this.empty.innerText = data.length ? "" : "Nada ainda...";
+    this.tasks.forEach(t => {
+      let el = document.createElement("li");
+      el.className = `task priority-${t.priority}`;
 
-    data.forEach(t => {
-      let li = document.createElement("li");
-      li.className = `task ${t.done?"done":""}`;
-
-      li.innerHTML = `
-        <div>
-          <strong>${t.text}</strong><br>
-          <small>${t.time||""} ${t.dur?"| "+t.dur+"min":""} ${t.end?"| "+t.end:""}</small>
-        </div>
-
-        <div class="actions">
-          <button onclick="app.toggle(${t.id})">✔</button>
-          <button onclick="app.remove(${t.id})">✖</button>
-        </div>
+      el.innerHTML = `
+        <strong>${t.text}</strong><br>
+        ${new Date(t.start).toLocaleString()} → ${new Date(t.end).toLocaleString()}<br>
+        ⏳ ${Math.round(t.duration)} min | Score: ${Math.round(t.score)}
+        ${t.conflict ? "<br>⚠️ Conflito de horário!" : ""}
+        <br>
+        <button onclick="app.toggle(${t.id})">✔</button>
       `;
 
-      this.list.appendChild(li);
+      list.appendChild(el);
     });
 
+    this.renderTimeline();
     this.updateStats();
   }
 
   updateStats() {
     let total = this.tasks.length;
     let done = this.tasks.filter(t=>t.done).length;
-    this.stats.innerText = `${done}/${total} concluídas`;
+
+    document.getElementById("stats").innerHTML =
+      `✔ ${done}/${total} tarefas`;
   }
 
   init() {
-    document.getElementById("add").onclick = () => {
-      this.add(
-        document.getElementById("task-input").value,
-        document.getElementById("time").value,
-        document.getElementById("duration").value
-      );
+    document.getElementById("add").onclick = () => this.addTask();
 
-      document.getElementById("task-input").value = "";
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark");
     };
 
-    document.querySelectorAll(".controls button").forEach(btn=>{
-      btn.onclick = () => {
-        this.filter = btn.dataset.filter;
-        this.render();
+    document.getElementById("theme-color").onchange = (e) => {
+      const colors = {
+        green: "#22c55e",
+        blue: "#3b82f6",
+        purple: "#a855f7"
       };
-    });
+      document.documentElement.style.setProperty("--accent", colors[e.target.value]);
+    };
 
+    if ("Notification" in window) {
+      Notification.requestPermission();
+    }
+
+    this.startNotificationLoop();
     this.render();
   }
 }
