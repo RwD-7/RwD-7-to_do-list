@@ -3,44 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskFlow GOD</title>
+  <title>TaskFlow Pro</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<div class="app">
 
-<main class="app">
+<header>
+  <h1>TaskFlow Pro</h1>
 
-  <header>
-    <h1>TaskFlow</h1>
-    <p>Ultra Focus System</p>
-  </header>
+  <div class="top-controls">
+    <button id="theme-toggle">🌙</button>
 
-  <section class="input">
-    <input id="task-input" placeholder="Digite sua missão...">
+    <select id="theme-color">
+      <option value="green">Verde</option>
+      <option value="blue">Azul</option>
+      <option value="purple">Roxo</option>
+    </select>
+  </div>
+</header>
 
-    <div class="row">
-      <input type="time" id="time">
-      <input type="number" id="duration" placeholder="min">
-    </div>
+<section class="input">
+  <input id="task-input" placeholder="Nome da tarefa">
 
-    <button id="add">Adicionar</button>
-  </section>
+  <div class="row">
+    <input type="datetime-local" id="start">
+    <input type="datetime-local" id="end">
+  </div>
 
-  <section class="controls">
-    <button data-filter="all">Tudo</button>
-    <button data-filter="active">Ativas</button>
-    <button data-filter="done">Concluídas</button>
-  </section>
+  <select id="priority">
+    <option value="1">🟢 Baixa</option>
+    <option value="2">⚡ Média</option>
+    <option value="3">🔥 Alta</option>
+  </select>
 
-  <section id="stats"></section>
+  <button id="add">Adicionar</button>
+</section>
 
-  <ul id="list"></ul>
+<section id="stats"></section>
 
-  <div id="empty"></div>
+<section class="timeline" id="timeline"></section>
 
-</main>
+<ul id="list"></ul>
+
+</div>
 
 <script src="script.js"></script>
 </body>
