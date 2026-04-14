@@ -3,49 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskFlow Pro</title>
+  <title>TaskFlow AI</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="app">
 
-<header>
-  <h1>TaskFlow Pro</h1>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h1>TaskFlow</h1>
 
-  <div class="top-controls">
-    <button id="theme-toggle">🌙</button>
+    <div class="card">
+      <p>Total</p>
+      <h3 id="totalTasks">0</h3>
+    </div>
 
-    <select id="theme-color">
-      <option value="green">Verde</option>
-      <option value="blue">Azul</option>
-      <option value="purple">Roxo</option>
-    </select>
-  </div>
-</header>
+    <div class="card">
+      <p>Carga</p>
+      <h3 id="dayLoad">0 min</h3>
+    </div>
 
-<section class="input">
-  <input id="task-input" placeholder="Nome da tarefa">
+    <div class="card focus">
+      <h4>🎯 Foco</h4>
+      <p id="focusTask">Nenhuma tarefa</p>
+    </div>
 
-  <div class="row">
-    <input type="datetime-local" id="start">
-    <input type="datetime-local" id="end">
-  </div>
+    <button id="themeToggle">Tema</button>
+  </aside>
 
-  <select id="priority">
-    <option value="1">🟢 Baixa</option>
-    <option value="2">⚡ Média</option>
-    <option value="3">🔥 Alta</option>
-  </select>
+  <!-- MAIN -->
+  <main class="main">
 
-  <button id="add">Adicionar</button>
-</section>
+    <!-- INPUT -->
+    <section class="input">
+      <input id="taskInput" placeholder="Nova tarefa">
 
-<section id="stats"></section>
+      <div class="row">
+        <input type="datetime-local" id="startInput">
+        <input type="datetime-local" id="endInput">
+      </div>
 
-<section class="timeline" id="timeline"></section>
+      <select id="priorityInput">
+        <option value="1">Baixa</option>
+        <option value="2">Média</option>
+        <option value="3">Alta</option>
+      </select>
 
-<ul id="list"></ul>
+      <button id="addBtn">Adicionar</button>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="timeline"></section>
+
+  </main>
 
 </div>
 
