@@ -1,59 +1,48 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f4f4f5;
+  --accent: #22c55e;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --text: #fff;
+  --card: #1e293b;
 }
 
 body {
-  background: #020617;
-  color: white;
-  overflow-x: hidden;
+  margin: 0;
+  font-family: system-ui;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* PARTICLES CANVAS */
-#particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* APP */
 .app {
-  max-width: 600px;
+  max-width: 750px;
   margin: auto;
   padding: 20px;
 }
 
-/* HEADER */
 header {
-  text-align: center;
-  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* INPUT */
 .input {
-  backdrop-filter: blur(30px);
-  background: rgba(255,255,255,0.05);
+  background: var(--card);
   padding: 15px;
-  border-radius: 18px;
-  margin-bottom: 15px;
-  transition: 0.3s;
-}
-
-.input:focus-within {
-  transform: scale(1.03);
-}
-
-/* INPUT */
-input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 10px;
   border-radius: 12px;
+  margin: 15px 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
   border: none;
-  font-size: 16px;
 }
 
 .row {
@@ -61,65 +50,33 @@ input {
   gap: 10px;
 }
 
-/* BUTTON */
 button {
-  padding: 12px;
+  margin-top: 10px;
+  padding: 10px;
   border: none;
-  border-radius: 14px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.15s;
-}
-
-button:active {
-  transform: scale(0.92);
 }
 
 #add {
-  width: 100%;
-  background: linear-gradient(135deg, #22c55e, #4ade80);
+  background: var(--accent);
+  color: white;
 }
 
-/* FILTERS */
-.controls {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.controls button {
-  flex: 1;
-  background: rgba(255,255,255,0.08);
-}
-
-/* TASK */
 .task {
-  backdrop-filter: blur(25px);
-  background: rgba(255,255,255,0.06);
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 18px;
-  display: flex;
-  justify-content: space-between;
-  transition: 0.2s;
+  background: var(--card);
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
 }
 
-.task:hover {
-  transform: scale(1.02);
+.timeline {
+  background: var(--card);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
-.task.done {
-  opacity: 0.35;
-  text-decoration: line-through;
-}
-
-/* ACTIONS */
-.actions button {
-  margin-left: 6px;
-}
-
-/* EMPTY */
-#empty {
-  text-align: center;
-  opacity: 0.4;
-  margin-top: 20px;
-}
+.priority-3 { border-left: 5px solid red; }
+.priority-2 { border-left: 5px solid orange; }
+.priority-1 { border-left: 5px solid green; }
