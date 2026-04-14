@@ -1,139 +1,59 @@
-# 📋 To-Do List Profissional + 😂 Gerador de Piadas
+# 🚀 To-Do List Profissional
 
-Aplicações web modernas e funcionais criadas com HTML, CSS e JavaScript puro.
+Uma aplicação moderna de gerenciamento de tarefas com foco em produtividade, organização e experiência do usuário.
 
-## 📁 Conteúdo do Repositório
+## ✨ Funcionalidades
 
-### 1. **To-Do List** (`index.html`)
-Gerenciador de tarefas completo com recursos profissionais.
+* ✅ Adicionar tarefas com descrição
+* ⏰ Definir horário de início
+* ⏳ Definir duração (em minutos)
+* 📊 Cálculo automático do horário de término
+* ✔️ Marcar tarefas como concluídas
+* ❌ Remover tarefas
+* 📭 Estado vazio quando não há tarefas
+* 🎯 Interface limpa e responsiva
 
-#### ✨ Funcionalidades:
-- ✅ Adicionar novas tarefas
-- ✅ Marcar como concluída
-- ✅ Deletar tarefas individuais
-- ✅ Filtrar (Todas, Ativas, Concluídas)
-- ✅ Estatísticas em tempo real
-- ✅ Limpar tarefas concluídas
-- ✅ Deletar todas as tarefas
-- ✅ Persistência com localStorage
-- ✅ Design responsivo
-- ✅ Animações suaves
+## 🧠 Lógica Aplicada
 
-#### 🎨 Tecnologias:
-- HTML5
-- CSS3 (Gradientes, Animações, Flexbox)
-- JavaScript (ES6+)
+A aplicação utiliza JavaScript puro para manipulação do DOM e cálculo de horários, permitindo:
 
----
+* Conversão de tempo (HH:MM → minutos totais)
+* Cálculo de duração acumulada
+* Atualização dinâmica da interface
 
-### 2. **Gerador de Piadas** (`joke-generator.html`)
-Aplicação que busca piadas aleatórias de uma API externa.
+## 🛠️ Tecnologias Utilizadas
 
-#### ✨ Funcionalidades:
-- 😂 Piadas aleatórias
-- 🎯 Categorias (Programação, Bate e volta, Geral)
-- 📋 Copiar piada para área de transferência
-- ⏳ Loading elegante
-- 🔄 Tratamento de erros
-- 📱 Design responsivo
+* HTML5
+* CSS3
+* JavaScript (Vanilla JS)
 
-#### 🔗 API Utilizada:
-- **JokeAPI** (https://jokeapi.dev)
-
-#### 🎨 Tecnologias:
-- HTML5
-- CSS3 (Gradientes, Animações, Responsivo)
-- JavaScript (Fetch API, Async/Await)
-
----
-
-## 🚀 Como Usar
-
-### Opção 1: Online (sem instalação)
-1. Acesse o repositório: https://github.com/RwD-7/RwD-7-to_do-list
-2. Clique no arquivo que deseja abrir (`index.html` ou `joke-generator.html`)
-3. Clique em "Raw" (canto superior direito)
-4. Abra a URL em uma nova aba do navegador
-
-### Opção 2: Clonar Localmente
-```bash
-git clone https://github.com/RwD-7/RwD-7-to_do-list.git
-cd RwD-7-to_do-list
-# Abra index.html ou joke-generator.html no navegador
-```
-
-### Opção 3: GitHub Pages
-Em breve disponível em: `https://rwD-7.github.io/RwD-7-to_do-list/`
-
----
-
-## 📊 Estrutura dos Arquivos
+## 📁 Estrutura do Projeto
 
 ```
-RwD-7-to_do-list/
-├── index.html              # To-Do List
-├── styles.css              # Estilos da To-Do List
-├── script.js               # Lógica da To-Do List
-├── joke-generator.html     # Gerador de Piadas
-└── README.md               # Este arquivo
+📦 projeto
+ ┣ 📜 index.html
+ ┣ 📜 style.css
+ ┗ 📜 script.js
 ```
 
----
+## 🌐 Deploy
 
-## 💾 Armazenamento de Dados
+Projeto hospedado via Vercel para acesso rápido e estável.
 
-### To-Do List:
-Os dados são salvos automaticamente no **localStorage** do navegador. Suas tarefas permanecerão mesmo após fechar o navegador.
+## 📌 Objetivo
 
-### Gerador de Piadas:
-Busca dados em tempo real da API JokeAPI.
+Este projeto foi desenvolvido com foco em prática de lógica de programação, manipulação de DOM e construção de interfaces funcionais.
 
----
+## 🔥 Melhorias Futuras
 
-## 🎨 Design
-
-Ambas as aplicações possuem:
-- ✨ Gradientes modernos
-- 🎭 Animações suaves
-- 📱 Design totalmente responsivo
-- ♿ Acessibilidade melhorada
-- 🔒 Proteção contra XSS
-
----
-
-## 🔒 Segurança
-
-- ✅ Escapamento de HTML para evitar XSS
-- ✅ Validação de entrada
-- ✅ Sem dependências externas (apenas APIs)
-
----
-
-## 📱 Compatibilidade
-
-- ✅ Chrome/Edge (versão 60+)
-- ✅ Firefox (versão 55+)
-- ✅ Safari (versão 11+)
-- ✅ Mobile (iOS e Android)
-
----
+* 💾 Persistência com LocalStorage
+* 📱 Versão mobile aprimorada
+* ✏️ Edição de tarefas
+* 📅 Integração com calendário
+* 🌙 Modo escuro
 
 ## 👨‍💻 Autor
 
-**RwD-7**
+Desenvolvido por [Seu Nome]
 
 ---
-
-## 📝 Licença
-
-Este projeto é de código aberto e está disponível para uso pessoal e educacional.
-
----
-
-## 🤝 Contribuições
-
-Sinta-se à vontade para fazer fork, clonar e contribuir com melhorias!
-
----
-
-**Desenvolvido com ❤️ usando HTML, CSS e JavaScript puro.
